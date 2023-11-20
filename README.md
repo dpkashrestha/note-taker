@@ -21,6 +21,8 @@ node server.js
 
 ## Screenshot
 
+<img width="1669" alt="Screenshot 2023-11-19 at 11 17 45 PM" src="https://github.com/dpkashrestha/note-taker/assets/142865374/db3a5336-eba6-4f1d-95fb-e76952492cc8">
+
 
 ## Deployed Application
 
