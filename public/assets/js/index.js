@@ -1,4 +1,5 @@
 let noteTitle;
+let noteId;
 let noteText;
 let saveNoteBtn;
 let newNoteBtn;
@@ -6,6 +7,7 @@ let noteList;
 
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
+  noteId = document.querySelector('.note-id');
   noteText = document.querySelector('.note-textarea');
   saveNoteBtn = document.querySelector('.save-note');
   newNoteBtn = document.querySelector('.new-note');
@@ -42,6 +44,16 @@ const saveNote = (note) =>
     body: JSON.stringify(note),
   });
 
+  const updateNote = (note) =>
+  fetch(`/api/notes/${note.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(note),
+  });
+
+
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
     method: 'DELETE',
@@ -53,28 +65,42 @@ const deleteNote = (id) =>
 const renderActiveNote = () => {
   hide(saveNoteBtn);
 
-  if (activeNote.title) {
+  if (activeNote.id) {
     noteTitle.removeAttribute('readonly');
     noteText.removeAttribute('readonly');
     noteTitle.value = activeNote.title;
+    noteId.value = activeNote.id;
     noteText.value = activeNote.text;
   } else {
     noteTitle.removeAttribute('readonly');
     noteText.removeAttribute('readonly');
     noteTitle.value = '';
+    noteId.value = '';
     noteText.value = '';
   }
 };
 
 const handleNoteSave = () => {
+
   const newNote = {
     title: noteTitle.value,
+    id: noteId.value,
     text: noteText.value,
   };
-  saveNote(newNote).then(() => {
-    getAndRenderNotes();
-    renderActiveNote();
-  });
+
+  if (activeNote.id) {
+    updateNote(newNote).then(() => {
+      getAndRenderNotes();
+      activeNote = newNote;
+      renderActiveNote();
+    });
+  } else {
+    saveNote(newNote).then(() => {
+      getAndRenderNotes();
+      renderActiveNote();
+    });
+  }
+
 };
 
 // Delete the clicked note
@@ -100,7 +126,6 @@ const handleNoteView = (e) => {
   e.preventDefault();
   activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
   renderActiveNote();
-  console.log(activeNote);
 };
 
 // Sets the activeNote to and empty object and allows the user to enter a new note

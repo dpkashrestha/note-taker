@@ -4,9 +4,9 @@ const util = require('util');
 // Promise version of fs.readFile
 const readFromFile = util.promisify(fs.readFile);
 
-function readDataFromFile() {
+const readDataFromFile = (dbNotePath) => {
     try {
-      const data = fs.readFileSync(dbFilePath, 'utf8');
+      const data = fs.readFileSync(dbNotePath, 'utf8');
       return JSON.parse(data);
     } catch (error) {
       console.error('Error reading data from file:', error);
@@ -43,4 +43,7 @@ const readAndAppend = (content, file) => {
   });
 };
 
-module.exports = { readFromFile, writeToFile, readAndAppend };
+module.exports = { readFromFile, writeToFile, readAndAppend, readDataFromFile };
+
+
+
