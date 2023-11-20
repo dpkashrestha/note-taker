@@ -5,15 +5,35 @@ body {
   padding: 0;
 }
 
+.icon-div {
+  cursor: pointer;
+  margin-right: 10px;
+  color: white;
+  border: white 1px solid;
+  border-radius: 5px;
+  padding: 5px;
+  display: inline;
+}
+
 .save-note {
   display: none;
 }
 
 .icons i {
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
   font-size: 1.5rem;
   cursor: pointer;
+}
+
+.button-text {
+  margin-right: 5px;
+}
+
+.icon-div:hover {
+  cursor: pointer;
+  margin-right: 10px;
+  background-color: gray;
 }
 
 .note-textarea,
@@ -28,6 +48,22 @@ body {
   resize: none;
   height: calc(100% - 63px);
   padding-top: 15px;
+}
+
+.delete-note {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.delete-note:hover {
+  background-color: rgb(247, 223, 227);
+}
+
+.clear-note {
+  color: red;
+  border-color: red;
+  display: none;
+
 }
 
 .note-title {
